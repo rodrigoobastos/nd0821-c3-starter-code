@@ -1,4 +1,7 @@
 from sklearn.metrics import fbeta_score, precision_score, recall_score
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import RandomizedSearchCV
+import pickle
 
 
 # Optional: implement hyperparameter tuning.
@@ -14,11 +17,62 @@ def train_model(X_train, y_train):
         Labels.
     Returns
     -------
-    model
+    final_model
         Trained machine learning model.
     """
 
-    pass
+    model = RandomForestClassifier(n_jobs = -1)
+
+    ## Using random search for hyperparameter tuning
+    param_dist = {"n_estimators": range(50, 500), "min_samples_leaf": range(5, 50)}
+    random_search = RandomizedSearchCV(model, param_distributions=param_dist, n_iter=20)
+    random_search.fit(X_train, y_train)
+
+    final_model = RandomForestClassifier(n_jobs = -1, **random_search.best_params_)
+
+    final_model.fit(X_train, y_train)
+
+    return final_model
+
+
+def save_pkl(encoder, model, path = "../model/"):
+    """
+    Save the model and encoder in the specified path
+
+    Inputs
+    ------
+    encoder : sklearn.preprocessing._encoders.OneHotEncoder
+        Trained One Hot Encoder.
+    model : 
+        Trained machine learning model.
+    path : str
+        Path of the folder used to save the model and encoder.
+    """
+
+    pickle.dump(model, open(path + 'model.pkl', 'wb'))
+    pickle.dump(encoder, open(path + 'encoder.pkl', 'wb'))
+
+
+def load_pkl(path = "../model/"):
+    """
+    Save the model and encoder in the specified path
+
+    Inputs
+    ------
+    encoder : sklearn.preprocessing._encoders.OneHotEncoder
+        Trained One Hot Encoder.
+    Returns
+    -------
+    model : 
+        Trained machine learning model.
+    path : str
+        Path of the folder used to save the model and encoder.
+    """
+
+    model = pickle.load(open(path + 'model.pkl', 'rb'))
+    encoder = pickle.load(open(path + 'encoder.pkl', 'rb'))
+
+    return encoder, model
 
 
 def compute_model_metrics(y, preds):
@@ -57,4 +111,4 @@ def inference(model, X):
     preds : np.array
         Predictions from the model.
     """
-    pass
+    return model.predict(X)
