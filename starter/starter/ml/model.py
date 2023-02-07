@@ -2,6 +2,7 @@ from sklearn.metrics import fbeta_score, precision_score, recall_score
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import RandomizedSearchCV
 import pickle
+import numpy as np
 
 
 # Optional: implement hyperparameter tuning.
@@ -94,6 +95,35 @@ def compute_model_metrics(y, preds):
     fbeta = fbeta_score(y, preds, beta=1, zero_division=1)
     precision = precision_score(y, preds, zero_division=1)
     recall = recall_score(y, preds, zero_division=1)
+    return precision, recall, fbeta
+
+def compute_metrics_on_slices(y, preds, slice_feature):
+    """
+    Calculate the precision, recall, and F1-score for each value of the given feature.
+
+    Inputs
+    ------
+    y : np.array
+        Known labels, binarized.
+    preds : np.array
+        Predicted labels, binarized.
+    slice_feature : pd.Series
+        Series with the values of the feature used as slices
+
+    Returns
+    -------
+    precision : dict
+    recall : dict
+    fbeta : dict
+    """
+    slices = np.unique(slice_feature.values)
+    fbeta = dict()
+    precision = dict()
+    recall = dict()
+    for cat in slices:
+        fbeta[cat] = fbeta_score(y[slice_feature == cat], preds[slice_feature == cat], beta=1, zero_division=1)
+        precision[cat] = precision_score(y[slice_feature == cat], preds[slice_feature == cat], zero_division=1)
+        recall[cat] = recall_score(y[slice_feature == cat], preds[slice_feature == cat], zero_division=1)
     return precision, recall, fbeta
 
 
