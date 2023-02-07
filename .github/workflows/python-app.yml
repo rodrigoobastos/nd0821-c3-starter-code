@@ -31,6 +31,7 @@ jobs:
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
+        aws-region: us-east-1
         aws-access-key-id: AKIAXIJH6GK44IAGPUPJ
         aws-secret-access-key: 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
         role-duration-seconds: 1200
