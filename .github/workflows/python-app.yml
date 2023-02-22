@@ -38,6 +38,7 @@ jobs:
         role-session-name: MySessionName
     - name: Set up DVC
       uses: iterative/setup-dvc@v1
+    - name: Pull from DVC
       run: dvc pull
     - name: Lint with flake8
       run: |
