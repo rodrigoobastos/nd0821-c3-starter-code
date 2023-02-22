@@ -44,7 +44,7 @@ async def say_hello():
 @app.post("/model/")
 async def api_inference(item: TaggedItem):
 
-    lb, encoder, model = load_pkl(path = './model/')
+    lb, encoder, model = load_pkl(path = 'model/')
     X, _, _, _ = process_data(
         pd.DataFrame(item).set_index(0).transpose().rename(
             columns={
