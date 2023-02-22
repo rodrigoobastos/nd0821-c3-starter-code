@@ -41,7 +41,7 @@ precision, recall, fbeta = compute_model_metrics(y_test, preds)
 
 print(precision, recall, fbeta)
 
-save_pkl(encoder, model)
+save_pkl(encoder, lb, model)
 
 ed_precision, ed_recall, ed_fbeta = compute_metrics_on_slices(y_test, preds, test.education)
 

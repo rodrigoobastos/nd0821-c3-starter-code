@@ -36,7 +36,7 @@ def train_model(X_train, y_train):
     return final_model
 
 
-def save_pkl(encoder, model, path = "../model/"):
+def save_pkl(encoder, lb, model, path = "../model/"):
     """
     Save the model and encoder in the specified path
 
@@ -46,12 +46,15 @@ def save_pkl(encoder, model, path = "../model/"):
         Trained One Hot Encoder.
     model : 
         Trained machine learning model.
+    lb: 
+        Trained sklearn LabelBinarizer
     path : str
         Path of the folder used to save the model and encoder.
     """
 
     pickle.dump(model, open(path + 'model.pkl', 'wb'))
     pickle.dump(encoder, open(path + 'encoder.pkl', 'wb'))
+    pickle.dump(lb, open(path + 'lb.pkl', 'wb'))
 
 
 def load_pkl(path = "../model/"):
@@ -72,8 +75,9 @@ def load_pkl(path = "../model/"):
 
     model = pickle.load(open(path + 'model.pkl', 'rb'))
     encoder = pickle.load(open(path + 'encoder.pkl', 'rb'))
+    lb = pickle.load(open(path + 'lb.pkl', 'rb'))
 
-    return encoder, model
+    return lb, encoder, model
 
 
 def compute_model_metrics(y, preds):
