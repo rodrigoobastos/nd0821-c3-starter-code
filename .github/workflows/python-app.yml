@@ -38,6 +38,7 @@ jobs:
         role-session-name: MySessionName
     - name: Set up DVC
       uses: iterative/setup-dvc@v1
+      run: dvc pull
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
