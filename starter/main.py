@@ -4,6 +4,7 @@ from pydantic import BaseModel, Field
 from starter.ml.model import load_pkl, inference
 from starter.ml.data import process_data
 import pandas as pd
+import os
 
 cat_features = [
         "workclass",
@@ -44,7 +45,7 @@ async def say_hello():
 @app.post("/model/")
 async def api_inference(item: TaggedItem):
 
-    lb, encoder, model = load_pkl(path = 'model/')
+    lb, encoder, model = load_pkl(path = os.path.dirname(__file__) + '/model/')
     X, _, _, _ = process_data(
         pd.DataFrame(item).set_index(0).transpose().rename(
             columns={
