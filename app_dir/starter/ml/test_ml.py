@@ -1,4 +1,5 @@
-from .model import train_model, compute_model_metrics, inference
+import os, sys; sys.path.append(os.path.dirname(os.path.realpath(__file__)))
+from model import train_model, compute_model_metrics, inference
 import numpy as np
 import sklearn
 
