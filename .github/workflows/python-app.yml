@@ -49,7 +49,7 @@ jobs:
     - name: Test with pytest
       run: |
         pytest
-    - name: Deploy Stage
+    - name: Deploy Stage (Render)
       uses: fjogeleit/http-request-action@v1.13.0
       with:
         url: https://api.render.com/deploy/srv-cfrron9gp3jo1dspldbg?key=7d2iuxifoVY
