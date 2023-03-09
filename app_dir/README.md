@@ -71,5 +71,5 @@ To use your new S3 bucket from the AWS CLI you will need to create an IAM user w
    * Hint: think about how paths will differ in your local environment vs. on Heroku.
    * Hint: development in Python is fast! But how fast you can iterate slows down if you rely on your CI/CD to fail before fixing an issue. I like to run flake8 locally before I commit changes.
 * Set up DVC on Heroku using the instructions contained in the starter directory.
-* Set up access to AWS on Heroku, if using the CLI: `heroku config:set AWS_ACCESS_KEY_ID=xxx AWS_SECRET_ACCESS_KEY=yyy`
+* Set up access to AWS on Heroku, if using the CLI: `heroku config:set AWS_ACCESS_KEY_ID=AKIAXIJH6GK44IAGPUPJ AWS_SECRET_ACCESS_KEY=2gjOBXoDSu/MmDRvt+bn/R1SuLZTY8B92ZPoNQV9`
 * Write a script that uses the requests module to do one POST on your live API.
